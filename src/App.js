@@ -64,7 +64,7 @@ const App = () => {
     } finally {
       setLoading(false);
     }
-  }, [loading, prompt]);
+  }, [loading, prompt, conversation]);
 
 
 
