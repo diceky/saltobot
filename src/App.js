@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import './App.css';
 import Chatbot from './chatbot';
 import logo from './images/logo.png';
+import { ColorRing } from 'react-loader-spinner'
 
 const App = () => {
 
@@ -28,8 +29,6 @@ const App = () => {
     // Still loading, do not submit
     if (loading) return;
 
-    setLoading(true);
-
     try {
       // merge new prompt to conversation
       const newConversation = [
@@ -39,14 +38,20 @@ const App = () => {
           'content': prompt
         }
       ];
+
       await setConversation(newConversation);
 
+      //clear text area
+      setPrompt('');
+
+      setLoading(true);
+
+      // wait for response from server
       const conversationJson = await Chatbot(
         prompt,
         newConversation
       );
       await setConversation(conversationJson);
-      setPrompt('');
 
     } catch (error) {
       alert(error);
@@ -65,10 +70,19 @@ const App = () => {
         <div className="chatWrapper" ref={chatWrapperRef}>
           <div className="chat" ref={chatContentRef}>
             {conversation.length > 0 && conversation.map((value, index) => (
-              <div className={index % 2 === 0 ? "chatItem-left" : "chatItem-right"}>
+              <div className={index % 2 === 0 ? "chatItem-left" : "chatItem-right"} key={index}>
                 <p className={index % 2 === 0 ? "text" : "text right"}>{value.content}</p>
               </div>
             ))}
+            {loading&& (
+              <ColorRing
+              height="50"
+              width="50"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              colors={['#AAF9E9', '#130B49', '#FD68CA']}
+              />
+            )}
           </div>
         </div>
         <form className="input" onSubmit={handleSubmit}>
