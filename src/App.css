@@ -93,3 +93,26 @@ textarea{
   border: 2px solid black;
   color: black;
 }
+
+/**************
+Responsive
+**************/
+@media screen and (max-width: 480px) {
+  /*　Smartphone portrait */
+  .logo{
+    width: 150px;
+  }
+  .chatWrapper{
+    padding: 20px;
+  }
+  .input{
+    padding: 20px;
+  }
+  textarea{
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 896px) {
+  /*　for iPad portrait and Smartphone landscape 　*/
+}
