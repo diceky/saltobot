@@ -7,7 +7,12 @@ import { ColorRing } from 'react-loader-spinner'
 const App = () => {
 
   const [prompt, setPrompt] = useState('');
-  const [conversation, setConversation] = useState([]);
+  const [conversation, setConversation] = useState([
+    {
+      'role': 'system',
+      'content': 'Your task is to answer questions regarding a 12 week incubation program called Salto AI. Always respond in playful, positive tone. Use at most 30 words to respond.'
+    }
+  ]);
   const [loading, setLoading] = useState(false);
   const chatWrapperRef = useRef(null);
   const chatContentRef = useRef(null);
@@ -69,18 +74,18 @@ const App = () => {
       <div className="content">
         <div className="chatWrapper" ref={chatWrapperRef}>
           <div className="chat" ref={chatContentRef}>
-            {conversation.length > 0 && conversation.map((value, index) => (
-              <div className={index % 2 === 0 ? "chatItem-left" : "chatItem-right"} key={index}>
-                <p className={index % 2 === 0 ? "text" : "text right"}>{value.content}</p>
-              </div>
-            ))}
-            {loading&& (
+            {conversation.length > 0 && conversation.slice(1).map((value, index) => (
+                <div className={index % 2 === 1 ? "chatItem-left" : "chatItem-right"} key={index}>
+                  <p className={index % 2 === 1 ? "text" : "text right"}>{value.content}</p>
+                </div>
+              ))}
+            {loading && (
               <ColorRing
-              height="50"
-              width="50"
-              ariaLabel="color-ring-loading"
-              wrapperStyle={{}}
-              colors={['#AAF9E9', '#130B49', '#FD68CA']}
+                height="50"
+                width="50"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                colors={['#AAF9E9', '#130B49', '#FD68CA', '#DAFFA7', '#90A9E8']}
               />
             )}
           </div>
