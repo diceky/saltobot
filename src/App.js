@@ -66,7 +66,12 @@ const App = () => {
     }
   }, [loading, prompt, conversation]);
 
-
+  const onKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      handleSubmit(event);
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -97,6 +102,7 @@ const App = () => {
               cols='50'
               value={prompt}
               onChange={handleMessageChange}
+              onKeyDown={onKeyDown}
               placeholder="Type your question here..."
             />
           </label>
