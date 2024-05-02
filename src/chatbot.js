@@ -17,7 +17,7 @@ const Chatbot = async (prompt, conversation) => {
             .then((data) => {
                 response = [
                     ...conversation,
-                    data["body-json"].body
+                    data.body
                 ];
             });
     } catch (error) {
